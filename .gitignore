@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+backend/venv/
+venv/
+ENV/
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment & Secrets
+.env
+*.local
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/

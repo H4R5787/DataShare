@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: secure_pass_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_URL=postgresql+asyncpg://secure_pass:secure_pass_password@db:5432/secure_pass_db
+      - TELECOM_MODE=mock
+      - PAYMENT_MODE=mock
+      - ENABLE_MOCK_OTP=true
+      - SECRET_KEY=prod-sample-change-this-secret-key-rxq-991823
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    container_name: secure_pass_postgres
+    environment:
+      - POSTGRES_USER=secure_pass
+      - POSTGRES_PASSWORD=secure_pass_password
+      - POSTGRES_DB=secure_pass_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U secure_pass -d secure_pass_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

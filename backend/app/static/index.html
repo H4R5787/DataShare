@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Secure Pass RxQ — Mobile Data Gifting</title>
+  <!-- Favicon & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#EEF2FF',
+              100: '#E0E7FF',
+              500: '#6366F1',
+              600: '#4F46E5',
+              700: '#4338CA',
+              900: '#0A192F',
+              navy: '#0A192F',
+            },
+            jio: '#0F52BA',
+            airtel: '#E40000',
+            vi: '#FDB813',
+            bsnl: '#00529B',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0B132B;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 4px;
+    }
+    .animate-pulse-slow {
+      animation: pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-0 md:p-6 text-slate-900">
+
+  <!-- Mobile Frame Container -->
+  <div id="app-container" class="w-full max-w-md h-screen md:h-[880px] bg-slate-50 md:rounded-[40px] shadow-2xl flex flex-col overflow-hidden relative border-0 md:border-8 md:border-slate-800">
+
+    <!-- Top Phone Notch / Dynamic Island Bar (Desktop Mode Preview) -->
+    <div class="hidden md:flex justify-between items-center px-7 pt-3 pb-1 bg-slate-900 text-white text-xs select-none">
+      <span id="live-clock" class="font-semibold text-xs tracking-wide">09:41</span>
+      <div class="w-20 h-4 bg-black rounded-full mx-auto"></div>
+      <div class="flex items-center space-x-1.5 text-slate-300">
+        <i data-lucide="signal" class="w-3.5 h-3.5"></i>
+        <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+        <i data-lucide="battery" class="w-4 h-4 text-emerald-400"></i>
+      </div>
+    </div>
+
+    <!-- App View Port (Screen Switcher) -->
+    <main id="app-viewport" class="flex-1 overflow-y-auto custom-scrollbar relative flex flex-col">
+      <!-- Screens rendered dynamically by app.js -->
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav id="bottom-nav" class="hidden border-t border-slate-200 bg-white/95 backdrop-blur-md px-6 py-2.5 flex justify-between items-center z-30 select-none">
+      <button onclick="router.navigate('home')" class="nav-item flex flex-col items-center text-slate-400 hover:text-brand-600 transition" data-nav="home">
+        <i data-lucide="home" class="w-5 h-5 mb-0.5"></i>
+        <span class="text-[10px] font-semibold">Home</span>
+      </button>
+      <button onclick="router.navigate('send-data')" class="nav-item flex flex-col items-center text-slate-400 hover:text-brand-600 transition" data-nav="send-data">
+        <div class="w-10 h-10 -mt-5 bg-brand-600 hover:bg-brand-700 text-white rounded-full flex items-center justify-center shadow-lg shadow-brand-500/30 transition transform active:scale-95">
+          <i data-lucide="zap" class="w-5 h-5"></i>
+        </div>
+        <span class="text-[10px] font-semibold mt-0.5">Send Data</span>
+      </button>
+      <button onclick="router.navigate('history')" class="nav-item flex flex-col items-center text-slate-400 hover:text-brand-600 transition" data-nav="history">
+        <i data-lucide="clock" class="w-5 h-5 mb-0.5"></i>
+        <span class="text-[10px] font-semibold">History</span>
+      </button>
+      <button onclick="router.navigate('account')" class="nav-item flex flex-col items-center text-slate-400 hover:text-brand-600 transition" data-nav="account">
+        <i data-lucide="user" class="w-5 h-5 mb-0.5"></i>
+        <span class="text-[10px] font-semibold">Account</span>
+      </button>
+    </nav>
+
+    <!-- Global Toast Banner -->
+    <div id="toast-container" class="absolute top-4 left-4 right-4 z-50 pointer-events-none transition-all duration-300 opacity-0 transform -translate-y-4">
+      <div id="toast-content" class="bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center space-x-3 text-sm">
+        <i id="toast-icon" data-lucide="info" class="w-5 h-5 text-brand-400 flex-shrink-0"></i>
+        <span id="toast-message" class="font-medium">Notification message</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Application Logic -->
+  <script src="/static/app.js"></script>
+</body>
+</html>
